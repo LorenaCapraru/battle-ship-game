@@ -1,24 +1,13 @@
 import "./Panel.css";
-import { useState } from "react";
 
-const Panel = () => {
-  const [sizeOfShip, setSizeOfShip] = useState(0);
-  const [direction, setDirection] = useState("Top");
-  const [submit, setSubmit] = useState(false);
-
-  const handleSize = (e) => {
-    e.preventDefault();
-    setSizeOfShip(e.target.value);
-  };
-  const handleDirection = (e) => {
-    e.preventDefault();
-    setDirection(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    return submit === false ? setSubmit(true) : setSubmit(false);
-  };
-
+const Panel = ({
+  sizeOfShip,
+  direction,
+  submit,
+  handleSize,
+  handleDirection,
+  handleSubmit,
+}) => {
   return (
     <div className="panel">
       {submit === false ? (
