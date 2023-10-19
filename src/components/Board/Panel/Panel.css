@@ -1,0 +1,19 @@
+.formPanel {
+  display: flex;
+  flex-direction: column;
+
+  font-size: large;
+}
+
+legend {
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+.inputData {
+  padding: 5% 0;
+}
+
+.inputData input {
+  width: 10%;
+}
