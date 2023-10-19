@@ -1,19 +1,20 @@
 import "./Board.css";
 
-const Board = ({ player, submit, direction, sizeOfShip }) => {
-  //create a board
+export default function Board({ player, submit, direction, sizeOfShip }) {
+  // Create a board
   let board = [];
-  //push in the board pairs of[i,j] which represents the indexes of the cell
+  // Push in the board pairs of [i, j] which represents the indexes of the cell
   let count = 0;
   for (let i = 1; i < 11; i++) {
     for (let j = 1; j < 11; j++) {
-      //it starts from 'A' and it adds one to pass to the next char every 10 cells
+      // It starts from 'A' and it adds one to pass to the next char every 10 cells
       board.push([String.fromCharCode("A".charCodeAt(0) + count / 10), j]);
       count++;
     }
   }
 
   const handleCellClick = (cell, index) => {
+    let selectedCells = [];
     if (submit === true) {
       if (direction === "Right") {
         cell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
@@ -22,12 +23,21 @@ const Board = ({ player, submit, direction, sizeOfShip }) => {
         cell[1] = Number(cell[1]) - (Number(sizeOfShip) - 1);
       }
       if (direction === "Top") {
-        cell[1] = Number(cell[0]) - (Number(sizeOfShip) - 1);
+        cell[0] = String.fromCharCode(
+          cell[0].charCodeAt(0) - (Number(sizeOfShip) - 1)
+        );
+      }
+      if (direction === "Bottom") {
+        cell[0] = String.fromCharCode(
+          cell[0].charCodeAt(0) + (Number(sizeOfShip) - 1)
+        );
       }
     }
+
     console.log(cell);
     return cell;
   };
+
   return (
     <div className="mainBoard">
       <div className="player">{player}</div>
@@ -44,5 +54,4 @@ const Board = ({ player, submit, direction, sizeOfShip }) => {
       </div>
     </div>
   );
-};
-export default Board;
+}
