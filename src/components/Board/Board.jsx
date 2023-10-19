@@ -14,7 +14,7 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
   }
 
   const handleCellClick = (cell, index) => {
-    let selectedCells = [];
+    // let selectedCells = [];
     if (submit === true) {
       if (direction === "Right") {
         cell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;

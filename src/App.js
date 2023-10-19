@@ -1,6 +1,6 @@
 import "./App.css";
 import Board from "./components/Board/Board";
-import Panel from "./components/Board/Panel/Panel";
+import Panel from "./components/Panel/Panel";
 import { useState } from "react";
 
 function App() {
