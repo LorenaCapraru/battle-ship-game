@@ -1,6 +1,9 @@
 import "./Board.css";
+import { useState } from "react";
 
 export default function Board({ player, submit, direction, sizeOfShip }) {
+  const [clickedCells, setClickedCells] = useState([]);
+
   // Create a board
   let board = [];
   // Push in the board pairs of [i, j] which represents the indexes of the cell
@@ -12,6 +15,7 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
       count++;
     }
   }
+  // const [click, setClick] = useState(false);
 
   const handleCellClick = (cell, index) => {
     // let selectedCells = [];
@@ -34,6 +38,14 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
       }
     }
 
+    if (clickedCells.includes(index)) {
+      setClickedCells((prevClickedCells) =>
+        prevClickedCells.filter((i) => i !== index)
+      );
+    } else {
+      // If the cell is not clicked, add it to the clickedCells array
+      setClickedCells((prevClickedCells) => [...prevClickedCells, index]);
+    }
     console.log(cell);
     return cell;
   };
@@ -45,8 +57,8 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
         {board.map((cell, index) => (
           <div
             key={index}
-            className="cell"
             onClick={() => handleCellClick(cell, index)}
+            className={clickedCells.includes(index) ? "cellClick" : "cell"}
           >
             ( {String.fromCharCode("A".charCodeAt(0) + index / 10)}, {cell[1]})
           </div>

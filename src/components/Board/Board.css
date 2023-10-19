@@ -26,6 +26,15 @@
   font-size: xx-small;
 }
 
+.cellClick {
+  border: 1px solid #ffffff;
+  cursor: crosshair;
+  transition: background-color 0.1s ease-in-out;
+  font-size: xx-small;
+  background-color: rgb(33, 215, 216);
+  color: white;
+}
+
 .cell:hover {
   background-color: rgb(33, 215, 216);
   color: white;
