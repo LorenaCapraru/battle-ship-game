@@ -1,8 +1,8 @@
 import "./Board.css";
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function Board({ player, submit, direction, sizeOfShip }) {
-  const [clickedCells, setClickedCells] = useState([]);
+  // const [clickedCells, setClickedCells] = useState([]);
 
   // Create a board
   let board = [];
@@ -18,36 +18,38 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
   // const [click, setClick] = useState(false);
 
   const handleCellClick = (cell, index) => {
-    // let selectedCells = [];
+    const lastCell = [...cell];
+    let selectedCells = [];
     if (submit === true) {
       if (direction === "Right") {
-        cell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
+        // lastCell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
+        for (let i = 0; i < sizeOfShip; i++) {
+          let nextCell = Number(cell[1]) + i - 1;
+          selectedCells.push(nextCell);
+          console.log("here", selectedCells);
+          // selectedCells = [[...cell], lastCell];
+        }
       }
       if (direction === "Left") {
-        cell[1] = Number(cell[1]) - (Number(sizeOfShip) - 1);
+        lastCell[1] = Number(cell[1]) - (Number(sizeOfShip) - 1);
+        selectedCells = [[...cell], lastCell];
       }
       if (direction === "Top") {
-        cell[0] = String.fromCharCode(
-          cell[0].charCodeAt(0) - (Number(sizeOfShip) - 1)
+        lastCell[0] = String.fromCharCode(
+          lastCell[0].charCodeAt(0) - (Number(sizeOfShip) - 1)
         );
+        selectedCells = [[...cell], lastCell];
       }
       if (direction === "Bottom") {
-        cell[0] = String.fromCharCode(
-          cell[0].charCodeAt(0) + (Number(sizeOfShip) - 1)
+        lastCell[0] = String.fromCharCode(
+          lastCell[0].charCodeAt(0) + (Number(sizeOfShip) - 1)
         );
+        selectedCells.push(lastCell);
       }
     }
 
-    if (clickedCells.includes(index)) {
-      setClickedCells((prevClickedCells) =>
-        prevClickedCells.filter((i) => i !== index)
-      );
-    } else {
-      // If the cell is not clicked, add it to the clickedCells array
-      setClickedCells((prevClickedCells) => [...prevClickedCells, index]);
-    }
-    console.log(cell);
-    return cell;
+    console.log(selectedCells);
+    return selectedCells;
   };
 
   return (
@@ -58,7 +60,7 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
           <div
             key={index}
             onClick={() => handleCellClick(cell, index)}
-            className={clickedCells.includes(index) ? "cellClick" : "cell"}
+            className={"cell"}
           >
             ( {String.fromCharCode("A".charCodeAt(0) + index / 10)}, {cell[1]})
           </div>
