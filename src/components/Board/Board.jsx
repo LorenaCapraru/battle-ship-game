@@ -22,13 +22,8 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
     let selectedCells = [];
     if (submit === true) {
       if (direction === "Right") {
-        // lastCell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
-        for (let i = 0; i < sizeOfShip; i++) {
-          let nextCell = Number(cell[1]) + i - 1;
-          selectedCells.push(nextCell);
-          console.log("here", selectedCells);
-          // selectedCells = [[...cell], lastCell];
-        }
+        lastCell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
+        selectedCells = [[...cell], lastCell];
       }
       if (direction === "Left") {
         lastCell[1] = Number(cell[1]) - (Number(sizeOfShip) - 1);
