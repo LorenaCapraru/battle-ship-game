@@ -1,8 +1,8 @@
 import "./Board.css";
-// import { useState } from "react";
+import { useState } from "react";
 
 export default function Board({ player, submit, direction, sizeOfShip }) {
-  // const [clickedCells, setClickedCells] = useState([]);
+  const [indexSelectedCell, setIndexSelectedCells] = useState([]);
 
   // Create a board
   let board = [];
@@ -15,37 +15,35 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
       count++;
     }
   }
-  // const [click, setClick] = useState(false);
 
   const handleCellClick = (cell, index) => {
-    const lastCell = [...cell];
-    let selectedCells = [];
+    // let indexSelectedCell = [];
+    // setIndexSelectedCells([]);
     if (submit === true) {
       if (direction === "Right") {
-        lastCell[1] = Number(cell[1]) + Number(sizeOfShip) - 1;
-        selectedCells = [[...cell], lastCell];
-      }
-      if (direction === "Left") {
-        lastCell[1] = Number(cell[1]) - (Number(sizeOfShip) - 1);
-        selectedCells = [[...cell], lastCell];
-      }
-      if (direction === "Top") {
-        lastCell[0] = String.fromCharCode(
-          lastCell[0].charCodeAt(0) - (Number(sizeOfShip) - 1)
-        );
-        selectedCells = [[...cell], lastCell];
-      }
-      if (direction === "Bottom") {
-        lastCell[0] = String.fromCharCode(
-          lastCell[0].charCodeAt(0) + (Number(sizeOfShip) - 1)
-        );
-        selectedCells.push(lastCell);
+        for (let i = 0; i < sizeOfShip; i++) {
+          // indexSelectedCell.push(index + 1);
+          setIndexSelectedCells([...indexSelectedCell, index + 1]);
+        }
+      } else if (direction === "Left") {
+        for (let i = 0; i < sizeOfShip; i++) {
+          setIndexSelectedCells([...indexSelectedCell, index - 1]);
+        }
+      } else if (direction === "Top") {
+        for (let i = 0; i < sizeOfShip; i++) {
+          setIndexSelectedCells([...indexSelectedCell, index - i * 10]);
+        }
+      } else if (direction === "Bottom") {
+        for (let i = 0; i < sizeOfShip; i++) {
+          setIndexSelectedCells([...indexSelectedCell, index + i * 10]);
+        }
       }
     }
 
-    console.log(selectedCells);
-    return selectedCells;
+    console.log(indexSelectedCell);
+    return indexSelectedCell.sort();
   };
+  // setIndexSelectedCells([34, 35, 36]);
 
   return (
     <div className="mainBoard">
@@ -55,9 +53,9 @@ export default function Board({ player, submit, direction, sizeOfShip }) {
           <div
             key={index}
             onClick={() => handleCellClick(cell, index)}
-            className={"cell"}
+            className={indexSelectedCell.includes(index) ? "cellClick" : "cell"}
           >
-            ( {String.fromCharCode("A".charCodeAt(0) + index / 10)}, {cell[1]})
+            {String.fromCharCode("A".charCodeAt(0) + index / 10)}, {cell[1]}
           </div>
         ))}
       </div>
